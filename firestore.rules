@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if request comes from an authenticated user
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Rooms Collection
+    match /rooms/{roomId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() 
+        && request.resource.data.name is string 
+        && request.resource.data.name.size() > 0 
+        && request.resource.data.name.size() <= 50;
+
+      // Messages Sub-collection
+      match /messages/{messageId} {
+        allow read: if isAuthenticated();
+        allow create: if isAuthenticated() 
+          && request.resource.data.senderId == request.auth.uid
+          && request.resource.data.message is string
+          && request.resource.data.message.size() > 0
+          && request.resource.data.message.size() <= 1000;
+      }
+
+      // Typing Presence Sub-collection
+      match /typing/{userId} {
+        allow read: if isAuthenticated();
+        allow create, update, delete: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+  }
+}
