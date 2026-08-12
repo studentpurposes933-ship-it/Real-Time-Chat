@@ -1268,13 +1268,15 @@ body, html, #root {
   cursor: pointer;
 }
 
-/* Mobile Responsive Drawer Breakpoints */
+/* Mobile Responsive Drawer & Breakpoints */
 @media (max-width: 768px) {
   .app-sidebar {
     position: fixed;
     top: 0;
     left: 0;
+    width: 280px;
     height: 100vh;
+    height: 100dvh;
     transform: translateX(-100%);
     box-shadow: var(--shadow-popup);
   }
@@ -1289,7 +1291,8 @@ body, html, #root {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(2px);
     z-index: 99;
   }
 
@@ -1301,15 +1304,64 @@ body, html, #root {
     display: block;
   }
 
+  .chat-header {
+    padding: 0 0.85rem;
+  }
+
+  .room-title-info h1 {
+    font-size: 1rem;
+  }
+
+  .room-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .header-right {
+    gap: 0.4rem;
+  }
+
+  .btn-group-info, .btn-exit-group {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.725rem;
+  }
+
+  .connection-pill .connection-text {
+    display: none;
+  }
+
+  .connection-pill {
+    padding: 0.25rem 0.4rem;
+  }
+
   .message-wrapper {
-    max-width: 85%;
+    max-width: 88%;
   }
 
   .messages-scroll-area {
-    padding: 1rem;
+    padding: 0.85rem;
   }
 
   .message-input-form {
-    padding: 0.75rem 1rem 1rem;
+    padding: 0.65rem 0.75rem 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .modal-content {
+    padding: 1.25rem;
+    max-width: 95vw;
+  }
+
+  .room-title-info h1 {
+    font-size: 0.95rem;
+  }
+
+  .btn-group-info span:not(:first-child),
+  .btn-exit-group span:not(:first-child) {
+    font-size: 0.7rem;
   }
 }
